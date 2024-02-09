@@ -126,7 +126,8 @@ void DataFileHandler::loadSettings() {
 				|| lang == wxLANGUAGE_GERMAN_BELGIUM
 				|| lang == wxLANGUAGE_GERMAN_LIECHTENSTEIN
 				|| lang == wxLANGUAGE_GERMAN_LUXEMBOURG
-				|| lang == wxLANGUAGE_GERMAN_SWISS) {
+				|| lang == wxLANGUAGE_GERMAN_SWISS
+                || lang == 376) {
 			R::lang = R::LANG_DE;
 		} else {
 			R::lang = R::LANG_EN; //until language selectable
