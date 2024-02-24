@@ -6,6 +6,7 @@
  */
 
 #include "DataFileHandler.h"
+#include <string>
 #include <wx/wx.h>
 #include <wx/textfile.h>
 #include <wx/dir.h>
@@ -186,7 +187,7 @@ void DataFileHandler::saveMinis(const std::vector<Messdiener*>* list) {
 	file.AddLine(wxString::Format(wxT("%i"), R::VERSION_NUMBER));
 	for (int i = 0; i < (int) list->size(); i++) {
 		Messdiener m = *(list->at(i));
-		wxString line = m.name + D + m.vorname + D + m.geburtstag + D
+		wxString line = m.name + D + m.vorname + D + wxString::Format(wxT("%i"), m.aktiv) + D + m.geburtstag + D
 				+ m.strasse_nr + D + m.plz_ort + D + m.tel + D + m.mobile + D + m.email + D + m.bem;
 		int msize = m.dienste.size();
 		for (int j = 0; j < msize; j++) {
@@ -209,6 +210,7 @@ void DataFileHandler::loadMinis(std::vector<Dienst*>* dlist, std::vector<Messdie
 			wxStringTokenizer zr(line, D, wxTOKEN_RET_EMPTY_ALL);
 			wxString name = zr.NextToken();
 			wxString vorname = zr.NextToken();
+            bool aktiv = (bool) wxAtoi(zr.NextToken());
 			wxString geburtstag = zr.NextToken();
 			wxString strasse_nr = zr.NextToken();
 			wxString plz_ort = zr.NextToken();
@@ -221,7 +223,7 @@ void DataFileHandler::loadMinis(std::vector<Dienst*>* dlist, std::vector<Messdie
 				int d = wxAtoi(zr.NextToken());
 				mdlist.push_back(dlist->at(d));
 			}
-			list->push_back(new Messdiener(name, vorname, mdlist, geburtstag, strasse_nr, plz_ort, tel, mobile, email, bem));
+			list->push_back(new Messdiener(name, vorname, mdlist, geburtstag, strasse_nr, plz_ort, tel, mobile, email, aktiv, bem));
 		}
 	}
 	file.Close();

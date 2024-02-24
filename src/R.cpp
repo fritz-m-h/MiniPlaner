@@ -66,7 +66,8 @@ wxString R::NACHNAME = wxT("Nachname");
 wxString R::VORNAME = wxT("Vorname");
 wxString R::GEBURTSTAG = wxT("Geburtsdatum");
 wxString R::BEM = wxT("Bem.");
-wxString R::MINI_ATTS[] = {R::NACHNAME, R::VORNAME, R::DIENSTE, R::GEBURTSTAG, R::STRASSE_NR, R::PLZ_ORT, R::TEL, R::MOBILE, R::EMAIL, R::BEM};
+wxString R::AKTIV = wxT("Aktivitätsstatus");
+wxString R::MINI_ATTS[] = {R::NACHNAME, R::VORNAME, R::DIENSTE, R::GEBURTSTAG, R::STRASSE_NR, R::PLZ_ORT, R::TEL, R::MOBILE, R::EMAIL, R::BEM, R::AKTIV};
 //Termine
 wxString R::EINZELTERMINE = wxT("Einzeltermine");
 wxString R::SERIENTERMINE = wxT("Serientermine");
@@ -273,6 +274,7 @@ void R::setLangEN() {
 	R::TEL = wxT("Telephone");
 	R::MOBILE = wxT("Mobile");
 	R::EMAIL = wxT("E-Mail");
+    R::AKTIV = wxT("activity status");
 	//Messdiener
 	R::NAME = wxT("Name");
 	R::NACHNAME = wxT("Surname");

@@ -7,11 +7,13 @@
 
 #include "PMessdiener.h"
 #include "PMGruppe.h"
+#include <limits>
 
-PMessdiener::PMessdiener(wxString _name, wxString _vorname, std::vector<Dienst*> _dienste)
+PMessdiener::PMessdiener(wxString _name, wxString _vorname, std::vector<Dienst*> _dienste, bool aktiv)
 : name(_name), vorname(_vorname), dienste(_dienste) {
-	num = 0;
 	gruppe = NULL;
+    if (!aktiv) num = INT_MAX;
+    if (aktiv) num = 0;
 }
 
 PMessdiener::PMessdiener(wxString _name, wxString _vorname, std::vector<Dienst*> _dienste, int _num)

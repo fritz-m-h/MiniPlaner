@@ -22,7 +22,7 @@ list_mini(_list_mini), edt(_edt) {
 	sizer->Add(st_head, 0, wxEXPAND | wxLEFT | wxTOP | wxRIGHT, 5);
 	const wxString SEP = wxT(";");
 	wxStaticText* st_cells = new wxStaticText(this, R::ID_ANY, R::NACHNAME + SEP + R::VORNAME + SEP + R::GEBURTSTAG
-			+ SEP + R::STRASSE_NR + SEP + R::PLZ_ORT + SEP + R::TEL + SEP + R::MOBILE + SEP + R::EMAIL);
+			+ SEP + R::STRASSE_NR + SEP + R::PLZ_ORT + SEP + R::TEL + SEP + R::MOBILE + SEP + R::EMAIL + SEP + R::AKTIV);
 	st_cells->SetFont(st_cells->GetFont().Bold());
 	sizer->Add(st_cells, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 5);
 
@@ -55,7 +55,7 @@ list_mini(_list_mini), edt(_edt) {
 	wxBoxSizer* sizer_preview = new wxBoxSizer(wxHORIZONTAL);
 	lc_minis = new wxListView(this, R::ID_LC, wxDefaultPosition, wxDefaultSize,
 			wxLC_REPORT);
-	wxString lc_minis_texts[] = {R::NACHNAME, R::VORNAME, R::GEBURTSTAG, R::STRASSE_NR, R::PLZ_ORT, R::TEL, R::MOBILE, R::EMAIL, R::BEM};
+	wxString lc_minis_texts[] = {R::NACHNAME, R::VORNAME, R::GEBURTSTAG, R::STRASSE_NR, R::PLZ_ORT, R::TEL, R::MOBILE, R::EMAIL, R::AKTIV, R::BEM};
 	wxListItem lc_minis_cols[R::MINI_ATTS_NUM - 1];
 	for (int i = 0; i < R::MINI_ATTS_NUM - 1; i++) {
 		lc_minis_cols[i].SetText(lc_minis_texts[i]);
@@ -102,6 +102,7 @@ void MiniImportDialog::notifyMinis() {
 		lc_minis->SetItem(i, 6, m->mobile);
 		lc_minis->SetItem(i, 7, m->email);
 		lc_minis->SetItem(i, 8, m->bem);
+        lc_minis->SetItem(i, 9, wxString::Format(wxT("%i"), m->aktiv));
 	}
 	for (int i = 0; i < R::MINI_ATTS_NUM - 1; i++) {
 		lc_minis->SetColumnWidth(i, wxLIST_AUTOSIZE_USEHEADER);
@@ -142,15 +143,15 @@ void MiniImportDialog::onBtFile(wxCommandEvent&) {
 	for (wxString line = file.GetFirstLine(); !file.Eof(); line = file.GetNextLine()) {
 		wxStringTokenizer zr(line, D, wxTOKEN_RET_EMPTY_ALL);
 		wxString name = wxT(""), vorname = wxT(""), geburtstag = wxT(""), strasse = wxT(""),
-				ort = wxT(""), tel = wxT(""), mobile = wxT(""), email = wxT(""), bem = wxT("");
-		wxString * items[R::MINI_ATTS_NUM - 1] = {&name, &vorname, &geburtstag, &strasse, &ort, &tel, &mobile, &email, &bem};
+				ort = wxT(""), tel = wxT(""), mobile = wxT(""), email = wxT(""), bem = wxT(""), aktiv = wxT("");
+		wxString * items[R::MINI_ATTS_NUM - 1] = {&name, &vorname, &geburtstag, &strasse, &ort, &tel, &mobile, &email, &bem, &aktiv};
 		int counter = 0;
 		while (zr.HasMoreTokens() && counter < R::MINI_ATTS_NUM - 1) {
 			*items[counter++] = Util::rmD(zr.NextToken());
 		}
 		Util::formatDate(geburtstag, &geburtstag);
 		std::vector<Dienst*> dienste; //dummy
-		tmp_list.push_back(Messdiener(name, vorname, dienste, geburtstag, strasse, ort, tel, mobile, email, bem));
+		tmp_list.push_back(Messdiener(name, vorname, dienste, geburtstag, strasse, ort, tel, mobile, email, (bool) wxAtoi(aktiv), bem));
 	}
 	notifyMinis();
 	file.Close();

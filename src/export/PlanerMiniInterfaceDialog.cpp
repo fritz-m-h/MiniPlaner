@@ -6,6 +6,7 @@
  */
 
 #include "PlanerMiniInterfaceDialog.h"
+#include <stdlib.h>
 #include <algorithm>
 #include <wx/clipbrd.h>
 #include <wx/filedlg.h>
@@ -565,13 +566,14 @@ bool PlanerMiniInterfaceDialog::readData() {
 			wxStringTokenizer zr_3(zr.NextToken(), D, wxTOKEN_RET_EMPTY_ALL);
 			wxString name = zr_3.NextToken();
 			wxString vorname = zr_3.NextToken();
+            bool aktiv = (bool) std::atoi(zr_3.NextToken());
 			std::vector<Dienst*> dienste;
 			while (zr_3.HasMoreTokens()) {
 				int id;
 				if (!safeAtoi(zr_3.NextToken(), &id)) return false;
 				dienste.push_back(list_dienst->at(id));
 			}
-			PMessdiener* mini = new PMessdiener(name, vorname, dienste);
+			PMessdiener* mini = new PMessdiener(name, vorname, dienste, aktiv);
 			list_mini->push_back(mini);
 			//anw
 			std::vector<int> list_anw;

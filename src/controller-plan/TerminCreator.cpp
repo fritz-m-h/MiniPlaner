@@ -306,7 +306,7 @@ void TerminCreator::addTGruppen(std::vector<TGruppe*>* tglist, std::vector<PTerm
 
 void TerminCreator::createPMessdienerOriginList(std::vector<Messdiener*>* mlist, std::vector<std::pair<PMessdiener*, Messdiener*> >* pmhlist) {
 	for (std::vector<Messdiener*>::iterator iter = mlist->begin(); iter != mlist->end(); iter++) {
-		pmhlist->push_back(std::make_pair(new PMessdiener((**iter).name, (**iter).vorname, (**iter).dienste), *iter));
+		pmhlist->push_back(std::make_pair(new PMessdiener((**iter).name, (**iter).vorname, (**iter).dienste, (**iter).aktiv), *iter));
 	}
 }
 

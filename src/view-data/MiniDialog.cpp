@@ -65,6 +65,11 @@ void MiniDialog::initComponents() {
 	gtagsizer->Add(dc_geburtstag, 1, wxEXPAND | wxALL, 0);
 	gridsizer->Add(gtagsizer, 1, wxEXPAND | wxALL, 2);
 
+    st_aktiv = new wxStaticText(this, R::ID_ANY, R::AKTIV, wxDefaultPosition, wxDefaultSize, 0);
+    gridsizer->Add(st_aktiv, 0, wxALL | wxALIGN_CENTER_VERTICAL, 2);
+    cb_aktiv = new wxCheckBox(this, R::ID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
+    gridsizer->Add(cb_aktiv, 0, wxALL | wxALIGN_CENTER, 0);
+
 	st_strasse_nr = new wxStaticText(this, R::ID_ANY, R::STRASSE_NR, wxDefaultPosition, wxDefaultSize, 0);
 	gridsizer->Add(st_strasse_nr, 0, wxALL | wxALIGN_CENTER_VERTICAL, 2);
 	tc_strasse_nr = new wxTextCtrl(this, R::ID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
@@ -136,11 +141,13 @@ void MiniDialog::initComponents() {
 		tc_tel->SetValue(m->tel);
 		tc_mobil->SetValue(m->mobile);
 		tc_email->SetValue(m->email);
+        cb_aktiv->SetValue(m->aktiv);
 		tc_bem->SetValue(m->bem);
 	} else {
 		for (int i = 0; i < num_dienste; i++) {
 			lb_dienste->Check(i, true);
 		}
+        cb_aktiv->SetValue(true);
 	}
 
 	SetSizerAndFit(sizer);
@@ -164,8 +171,8 @@ void MiniDialog::onBtOK(wxCommandEvent& event) {
 		}
 	}
 	Messdiener* m = new Messdiener(Util::rmD(tc_name->GetValue()), Util::rmD(tc_vorname->GetValue()), dienste, date,
-			Util::rmD(tc_strasse_nr->GetValue()), Util::rmD(tc_plz_ort->GetValue()), Util::rmD(tc_tel->GetValue()),
-			Util::rmD(tc_mobil->GetValue()), Util::rmD(tc_email->GetValue()), Util::rmD(tc_bem->GetValue()));
+			Util::rmD(tc_strasse_nr->GetValue()), Util::rmD(tc_plz_ort->GetValue()),  Util::rmD(tc_tel->GetValue()),
+			Util::rmD(tc_mobil->GetValue()), Util::rmD(tc_email->GetValue()), cb_aktiv->GetValue(), Util::rmD(tc_bem->GetValue()));
 	if (edt) {
 		if (!app->edtMini(index, m)) {
 			delete m;

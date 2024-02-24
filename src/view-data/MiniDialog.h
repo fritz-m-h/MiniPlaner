@@ -34,18 +34,21 @@ private:
 	wxStaticText* st_mobil;
 	wxStaticText* st_email;
 	wxStaticText* st_bem;
+    wxStaticText* st_aktiv;
 
 	wxTextCtrl* tc_name;
 	wxTextCtrl* tc_vorname;
 	wxCheckListBox* lb_dienste;
 	wxCheckBox* cb_geburtstag;
 	wxDatePickerCtrl* dc_geburtstag;
+    wxCheckBox* cb_aktiv;
 	wxTextCtrl* tc_strasse_nr;
 	wxComboBox* tc_plz_ort;
 	wxTextCtrl* tc_tel;
 	wxTextCtrl* tc_mobil;
 	wxTextCtrl* tc_email;
 	wxTextCtrl* tc_bem;
+
 
 	wxButton* bt_ok;
 	wxButton* bt_cancel;

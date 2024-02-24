@@ -86,6 +86,7 @@ wxString MiniExportDialog::createHTML() {
 		if (cb_cols[7]->GetValue()) page += wxT("<td>&#8203;") + m->mobile + wxT("</td>");
 		if (cb_cols[8]->GetValue()) page += wxT("<td>") + m->email + wxT("</td>");
 		if (cb_cols[9]->GetValue()) page += wxT("<td>&#8203;") + m->bem + wxT("</td>");
+        if (cb_cols[10]->GetValue()) page += wxT("<td>") + wxString::Format(wxT("%i"), m->aktiv) + wxT("</td>");
 		page += wxT("</tr>");
 	}
 	page += wxT("\n		</table>\n	</body>\n</html>");
@@ -117,6 +118,7 @@ wxString MiniExportDialog::createCSV() {
 		if (cb_cols[7]->GetValue()) page += m->mobile + D;
 		if (cb_cols[8]->GetValue()) page += m->email + D;
 		if (cb_cols[9]->GetValue()) page += m->bem + D;
+        if (cb_cols[9]->GetValue()) page += wxString::Format(wxT("%i"), m->aktiv) + D;
 		page += N;
 	}
 	return page;
@@ -170,6 +172,8 @@ wxString MiniExportDialog::createExcelXML() {
 		if (cb_cols[7]->GetValue()) page += wxT("<Cell><Data ss:Type=\"String\">&#8203;") + m->mobile + wxT("</Data></Cell>");
 		if (cb_cols[8]->GetValue()) page += wxT("<Cell><Data ss:Type=\"String\">") + m->email + wxT("</Data></Cell>");
 		if (cb_cols[9]->GetValue()) page += wxT("<Cell><Data ss:Type=\"String\">&#8203;") + m->bem + wxT("</Data></Cell>");
+        if (cb_cols[10]->GetValue()) page += wxT("<Cell><Data ss: Type=\"String\">&#8203;") + wxString::Format("%i", m->aktiv) +
+                    wxT("</Data></Cell>");
 		page += wxT("</Row>");
 	}
 	page += wxT("</Table></Worksheet></Workbook>");

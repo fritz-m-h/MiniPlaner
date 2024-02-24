@@ -23,7 +23,7 @@ public:
 	
 	int _id;
 	
-	PMessdiener(wxString _name, wxString _vorname, std::vector<Dienst*> _dienste);
+	PMessdiener(wxString _name, wxString _vorname, std::vector<Dienst*> _dienste, bool aktiv);
 	PMessdiener(wxString _name, wxString _vorname, std::vector<Dienst*> _dienste, int _num);
 	static bool cmp(const PMessdiener* m1, const PMessdiener* m2);
 	static wxString printDienste(const PMessdiener* m);

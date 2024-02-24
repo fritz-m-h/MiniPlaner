@@ -13,9 +13,9 @@ Messdiener::Messdiener() {
 
 Messdiener::Messdiener(const wxString& _name, const wxString& _vorname, std::vector<Dienst*> _dienste, const wxString& _geburtstag,
 		const wxString& _strasse_nr, const wxString& _plz_ort, const wxString& _tel,
-		const wxString& _mobile, const wxString& _email, const wxString& _bem)
+		const wxString& _mobile, const wxString& _email, bool _aktiv, const wxString& _bem)
 : name(_name), vorname(_vorname), dienste(_dienste), geburtstag(_geburtstag), strasse_nr(_strasse_nr),
-plz_ort(_plz_ort), tel(_tel), mobile(_mobile), email(_email), bem(_bem) {
+plz_ort(_plz_ort), tel(_tel), mobile(_mobile), email(_email), aktiv(_aktiv), bem(_bem) {
 
 }
 

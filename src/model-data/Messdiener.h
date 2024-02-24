@@ -20,7 +20,7 @@ public:
 	Messdiener();
 	Messdiener(const wxString& _name, const wxString& _vorname, std::vector<Dienst*> _dienste, const wxString& _geburtstag,
 			const wxString& _strasse_nr, const wxString& _plz_ort, const wxString& _tel,
-			const wxString& _mobile, const wxString& _email, const wxString& _bem);
+			const wxString& _mobile, const wxString& _email, bool _aktiv, const wxString& _bem);
 
 	wxString name;
 	wxString vorname;
@@ -31,6 +31,7 @@ public:
 	wxString tel;
 	wxString mobile;
 	wxString email;
+    bool aktiv;
 	wxString bem;
 	int _id;
 private:

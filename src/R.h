@@ -65,13 +65,14 @@ namespace R {
 	extern wxString TEL;
 	extern wxString MOBILE;
 	extern wxString EMAIL;
+    extern wxString AKTIV;
 	//Messdiener
 	extern wxString NAME;
 	extern wxString NACHNAME;
 	extern wxString VORNAME;
 	extern wxString GEBURTSTAG;
 	extern wxString BEM;
-	const int MINI_ATTS_NUM = 10;
+	const int MINI_ATTS_NUM = 11;
 	extern wxString MINI_ATTS[MINI_ATTS_NUM];
 	//Termine
 	extern wxString EINZELTERMINE;
