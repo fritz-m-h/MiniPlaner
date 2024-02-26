@@ -123,7 +123,7 @@ void PlanFileHandler::savePlaner(Planer* planer) {
 	minis_file.Clear();
 	for (int i = 0; i < (int) planer->list_mini.size(); i++) {
 		PMessdiener m = *(planer->list_mini.at(i));
-		wxString line = m.name + D + m.vorname + D + wxString::Format(wxT("%i"), m.num);
+		wxString line = m.name + D + m.vorname + D + wxString::Format(wxT("%i"), m.aktiv) + D + wxString::Format(wxT("%i"), m.num);
 		for (std::vector<Dienst*>::iterator iter_d = m.dienste.begin(); iter_d != m.dienste.end(); iter_d++) {
 			line += D + wxString::Format(wxT("%i"), (**iter_d)._id);
 		}
@@ -196,13 +196,14 @@ void PlanFileHandler::loadPlaner(Planer* planer) {
 		wxStringTokenizer zr(line, D, wxTOKEN_RET_EMPTY_ALL);
 		wxString name = zr.NextToken();
 		wxString vorname = zr.NextToken();
+        bool aktiv = (bool) wxAtoi(zr.NextToken());
 		int num = wxAtoi(zr.NextToken());
 		std::vector<Dienst*> mdlist;
 		while (zr.HasMoreTokens()) {
 			int d = wxAtoi(zr.NextToken());
 			mdlist.push_back(planer->list_dienst.at(d));
 		}
-		planer->list_mini.push_back(new PMessdiener(name, vorname, mdlist, num));
+		planer->list_mini.push_back(new PMessdiener(name, vorname, mdlist, aktiv, num));
 	}
 	minis_file.Close();
 	//load MGruppen

@@ -204,14 +204,28 @@ bool PlanerController::fillDienst(CTermin* termin, int dienst) {
 		eraseSurroundings(termin, termin->list_dienst_minis.at(dienst).first, &list_minimum);
 
 		//select a mini
-		int index = std::rand() % list_minimum.size();
-		PMessdiener* m;
-		int i = 0;
-		std::unordered_set<PMessdiener*>::iterator iter_m = list_minimum.begin();
-		for (; i < index; i++) {
-			iter_m++;
-		}
-		m = *iter_m;
+
+        PMessdiener* m;
+        int index = std::rand() % list_minimum.size();
+            int i = 0;
+            std::unordered_set<PMessdiener*>::iterator iter_m = list_minimum.begin();
+            for (; i < index; i++) {
+                iter_m++;
+            }
+            m = *iter_m;
+        while(!m->aktiv && i + 1 != index) {
+            i++;
+            if(i < list_minimum.size()) {
+                iter_m++;
+                m = *iter_m;
+            }
+            else {
+                iter_m = list_minimum.begin();
+                i = 0;
+                m = *iter_m;
+                if (index == 0) break;
+            }
+        }
 		if (m->gruppe != NULL && m->gruppe->modus == MGruppe::NUR_GEM) {
 			//might need to be inserted somewhere else
 			insertMGruppeHard(termin, m->gruppe->list, true);
@@ -239,15 +253,26 @@ bool PlanerController::fillDienst(CTermin* termin, int dienst) {
 
 void PlanerController::findMinimumMiniNum(std::unordered_set<PMessdiener*>* list_avai, std::unordered_set<PMessdiener*>* list_minimum) {
 	int minimum = -1;
-	for (std::unordered_set<PMessdiener*>::iterator iter = list_avai->begin(); iter != list_avai->end(); iter++) {
-		if ((**iter).num < minimum || minimum == -1) {
-			list_minimum->clear();
-			list_minimum->insert(*iter);
-			minimum = (**iter).num;
-		} else if ((**iter).num == minimum) {
-			list_minimum->insert(*iter);
-		}
-	}
+    for (std::unordered_set<PMessdiener *>::iterator iter = list_avai->begin(); iter != list_avai->end(); iter++) {
+        if (((**iter).num < minimum || minimum == -1) && (**iter).aktiv) {
+            list_minimum->clear();
+            list_minimum->insert(*iter);
+            minimum = (**iter).num;
+        } else if ((**iter).num == minimum && (**iter).aktiv) {
+            list_minimum->insert(*iter);
+        }
+    }
+    if (list_minimum->empty()) {
+        for (std::unordered_set<PMessdiener *>::iterator iter = list_avai->begin(); iter != list_avai->end(); iter++) {
+            if ((**iter).num < minimum || minimum == -1) {
+                list_minimum->clear();
+                list_minimum->insert(*iter);
+                minimum = (**iter).num;
+            } else if ((**iter).num == minimum) {
+                list_minimum->insert(*iter);
+            }
+        }
+    }
 }
 
 void PlanerController::eraseSurroundings(CTermin* termin, Dienst* dienst, std::unordered_set<PMessdiener*>* list_minimum) {
